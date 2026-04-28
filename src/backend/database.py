@@ -27,12 +27,12 @@ def init_database():
     else:
         for name, details in initial_activities.items():
             if "difficulty_level" in details:
-                activities_collection.update_many(
+                activities_collection.update_one(
                     {"_id": name},
                     {"$set": {"difficulty_level": details["difficulty_level"]}}
                 )
             else:
-                activities_collection.update_many(
+                activities_collection.update_one(
                     {"_id": name, "difficulty_level": {"$exists": True}},
                     {"$unset": {"difficulty_level": ""}}
                 )
