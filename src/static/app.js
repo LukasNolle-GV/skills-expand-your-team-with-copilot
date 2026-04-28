@@ -485,8 +485,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function getShareText(activityName, details) {
-    const cleanDescription = details.description.replace(/[.!?]+\s*$/, "");
-    return `Check out the ${activityName} activity at Mergington High School. ${cleanDescription}. Schedule: ${formatSchedule(
+    const cleanDescription = details.description.trim();
+    const descriptionWithPunctuation = /[.!?]$/.test(cleanDescription)
+      ? cleanDescription
+      : `${cleanDescription}.`;
+    return `Check out the ${activityName} activity at Mergington High School. ${descriptionWithPunctuation} Schedule: ${formatSchedule(
       details
     )}.`;
   }
