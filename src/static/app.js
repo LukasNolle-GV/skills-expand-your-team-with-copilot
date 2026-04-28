@@ -485,7 +485,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function getShareText(activityName, details) {
-    return `Check out the ${activityName} activity at Mergington High School. ${details.description} Schedule: ${formatSchedule(
+    const cleanDescription = details.description.replace(/[.!?]+\s*$/, "");
+    return `Check out the ${activityName} activity at Mergington High School. ${cleanDescription}. Schedule: ${formatSchedule(
       details
     )}.`;
   }
@@ -541,8 +542,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function copyText(text) {
     if (navigator.clipboard?.writeText) {
-      await navigator.clipboard.writeText(text);
-      return;
+      try {
+        await navigator.clipboard.writeText(text);
+        return;
+      } catch (error) {
+        console.warn("Clipboard API unavailable, falling back to manual copy.", error);
+      }
     }
 
     const tempInput = document.createElement("textarea");
@@ -552,8 +557,12 @@ document.addEventListener("DOMContentLoaded", () => {
     tempInput.style.left = "-9999px";
     document.body.appendChild(tempInput);
     tempInput.select();
-    document.execCommand("copy");
+    const copied = document.execCommand("copy");
     document.body.removeChild(tempInput);
+
+    if (!copied) {
+      throw new Error("Copy command was unsuccessful.");
+    }
   }
 
   async function handleShareActivity(activityName, details) {
