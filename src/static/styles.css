@@ -187,7 +187,14 @@ section h3 {
   margin-top: auto;
   padding-top: 10px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.shared-activity-highlight {
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 3px rgba(255, 111, 0, 0.15);
 }
 
 /* Activity Tag */
@@ -285,6 +292,53 @@ section h3 {
   letter-spacing: 0.3px;
   text-transform: uppercase;
   border: none;
+}
+
+.activity-share-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.share-actions-label {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.share-button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.share-action-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 72px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  color: var(--primary);
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.share-action-button:hover {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: var(--primary-text);
+  transform: translateY(-1px);
 }
 
 button {
