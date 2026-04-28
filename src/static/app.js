@@ -75,8 +75,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function initializeTheme() {
     const savedTheme = localStorage.getItem("theme");
+    const isValidSavedTheme = savedTheme === "dark" || savedTheme === "light";
     const preferredTheme =
-      savedTheme ||
+      (isValidSavedTheme ? savedTheme : null) ||
       (window.matchMedia &&
       window.matchMedia("(prefers-color-scheme: dark)").matches
         ? "dark"
