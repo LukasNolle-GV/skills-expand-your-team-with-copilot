@@ -563,7 +563,7 @@ document.addEventListener("DOMContentLoaded", () => {
     tempInput.style.left = "-9999px";
     document.body.appendChild(tempInput);
     tempInput.select();
-    // Fallback for browsers that do not support the async Clipboard API.
+    // Legacy browser compatibility fallback when the async Clipboard API is unavailable.
     const copied = document.execCommand("copy");
     document.body.removeChild(tempInput);
 
@@ -689,8 +689,12 @@ document.addEventListener("DOMContentLoaded", () => {
         </ul>
       </div>
       <div class="activity-card-actions">
-        <div class="activity-share-actions" aria-label="Share ${name} with friends">
-          <span class="share-actions-label">Share with friends</span>
+        <section class="activity-share-actions" aria-labelledby="share-label-${encodeURIComponent(
+          name
+        )}">
+          <span class="share-actions-label" id="share-label-${encodeURIComponent(
+            name
+          )}">Share with friends</span>
           <div class="share-button-group">
             <button type="button" class="share-action-button share-native-button">
               Share
@@ -712,7 +716,7 @@ document.addEventListener("DOMContentLoaded", () => {
               Email
             </a>
           </div>
-        </div>
+        </section>
         ${
           currentUser
             ? `
