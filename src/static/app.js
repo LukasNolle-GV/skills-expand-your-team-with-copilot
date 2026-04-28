@@ -506,7 +506,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function getXShareUrl(activityName, details) {
     const shareUrl = getShareUrl(activityName);
     const text = getShareText(activityName, details);
-    return `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+    return `https://x.com/intent/post?text=${encodeURIComponent(
       text
     )}&url=${encodeURIComponent(shareUrl)}`;
   }
@@ -722,9 +722,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     const shareButton = activityCard.querySelector(".share-native-button");
-    shareButton.addEventListener("click", () => {
-      handleShareActivity(name, details);
-    });
+    if (shareButton) {
+      shareButton.addEventListener("click", () => {
+        handleShareActivity(name, details);
+      });
+    }
 
     // Add click handler for register button (only when authenticated)
     if (currentUser) {
