@@ -549,7 +549,10 @@ document.addEventListener("DOMContentLoaded", () => {
         await navigator.clipboard.writeText(text);
         return;
       } catch (error) {
-        console.warn("Clipboard API unavailable, falling back to manual copy.", error);
+        console.warn(
+          "Clipboard API unavailable, falling back to legacy copy support.",
+          error
+        );
       }
     }
 
@@ -560,11 +563,12 @@ document.addEventListener("DOMContentLoaded", () => {
     tempInput.style.left = "-9999px";
     document.body.appendChild(tempInput);
     tempInput.select();
+    // Fallback for browsers that do not support the async Clipboard API.
     const copied = document.execCommand("copy");
     document.body.removeChild(tempInput);
 
     if (!copied) {
-      throw new Error("Copy command was unsuccessful.");
+      throw new Error("Failed to copy the share link. Please copy it manually.");
     }
   }
 
