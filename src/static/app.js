@@ -73,17 +73,16 @@ document.addEventListener("DOMContentLoaded", () => {
     updateThemeToggleUI();
   }
 
+  function getSystemPreferredTheme() {
+    const darkModeMediaQuery =
+      window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)");
+    return darkModeMediaQuery && darkModeMediaQuery.matches ? "dark" : "light";
+  }
+
   function initializeTheme() {
     const savedTheme = localStorage.getItem("theme");
     const isValidSavedTheme = savedTheme === "dark" || savedTheme === "light";
-    const preferredTheme =
-      (isValidSavedTheme ? savedTheme : null) ||
-      (window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light");
-
-    currentTheme = preferredTheme;
+    currentTheme = isValidSavedTheme ? savedTheme : getSystemPreferredTheme();
     updateThemeToggleUI();
   }
 
